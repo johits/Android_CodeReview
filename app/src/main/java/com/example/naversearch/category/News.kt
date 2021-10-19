@@ -13,6 +13,7 @@ import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgNewsBinding
 import com.example.naversearch.model.NaverAPI
 import com.example.naversearch.model.SearchData
+import com.example.naversearch.model.CommonVariable
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -23,13 +24,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class News : Fragment() {
-
     lateinit var binding: FrgNewsBinding
-    val BASE_URL_NAVER_API = "https://openapi.naver.com/"
     private val textAdapter = TextAdapter()
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +55,7 @@ class News : Fragment() {
                 val keyword = binding.etNews.text.toString()
                 Log.d("키워드", "키워드 $keyword")
                 val retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL_NAVER_API)
+                    .baseUrl(CommonVariable.BASE_URL_NAVER_API)
                     .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 사용
                     .build()
                 val api = retrofit.create(NaverAPI::class.java)

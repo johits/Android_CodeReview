@@ -13,6 +13,7 @@ import com.example.naversearch.adapter.ImageAdapter
 import com.example.naversearch.databinding.FrgImageBinding
 import com.example.naversearch.model.NaverAPI
 import com.example.naversearch.model.SearchData
+import com.example.naversearch.model.CommonVariable
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -25,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Image : Fragment() {
 
     lateinit var binding: FrgImageBinding
-    val BASE_URL_NAVER_API = "https://openapi.naver.com/"
     private val imageAdapter = ImageAdapter()
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
@@ -56,7 +56,7 @@ class Image : Fragment() {
             binding.btnImage -> {
                 val keyword = binding.etImage.text.toString()
                 val retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL_NAVER_API)
+                    .baseUrl(CommonVariable.BASE_URL_NAVER_API)
                     .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 사용
                     .build()
                 val api = retrofit.create(NaverAPI::class.java)

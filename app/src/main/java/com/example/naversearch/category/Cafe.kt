@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.naversearch.ResultGetSearch
 import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgCafeBinding
+import com.example.naversearch.model.CommonVariable
 import com.example.naversearch.model.NaverAPI
 import com.example.naversearch.model.SearchData
 import org.json.JSONArray
@@ -25,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Cafe : Fragment() {
 
     private lateinit var binding: FrgCafeBinding
-    private val BASE_URL_NAVER_API = "https://openapi.naver.com/"
     private val textAdapter = TextAdapter()
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
@@ -59,7 +59,7 @@ class Cafe : Fragment() {
             binding.btnCafe -> {
                 val keyword = binding.etCafe.text.toString()
                 val retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL_NAVER_API)
+                    .baseUrl(CommonVariable.BASE_URL_NAVER_API)
                     .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 사용
                     .build()
                 val api = retrofit.create(NaverAPI::class.java)
