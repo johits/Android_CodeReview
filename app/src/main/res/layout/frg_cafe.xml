@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable
+            name="fragment"
+            type="com.example.naversearch.category.Cafe" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -25,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="13sp"
-            android:text="검색" />
+            android:text="검색"
+            android:onClick="@{fragment.result}"/>
 
         <Button
             android:id="@+id/btn_cafe_get"
@@ -34,7 +37,8 @@
             android:layout_weight="1"
             android:textSize="13sp"
             android:layout_marginLeft="4dp"
-            android:text="조회" />
+            android:text="조회"
+            android:onClick="@{fragment.result}"/>
 
     </LinearLayout>
 
