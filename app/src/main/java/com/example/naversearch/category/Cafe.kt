@@ -119,7 +119,8 @@ class Cafe : Fragment() {
 
                                 reqArray.put(jsonObject)
                             }
-                            textAdapter.addItem(sd)
+//                            textAdapter.addItem(sd)
+                            textAdapter.submitList(sd) // list 변경
                             editor.putString("cafe", reqArray.toString())
                             editor.apply()
                         }
@@ -130,7 +131,8 @@ class Cafe : Fragment() {
                     })
                 } else {
                     sd.clear()
-                    textAdapter.addItem(sd)
+//                    textAdapter.addItem(sd)
+                    textAdapter.submitList(sd) // list 변경
                 }
             }
 
@@ -144,7 +146,8 @@ class Cafe : Fragment() {
                     val description = jsonArray.getJSONObject(i).getString("description")
                     sd.add(SearchData(title, description, "", ""))
 
-                    textAdapter.addItem(sd)
+//                    textAdapter.addItem(sd)
+                    textAdapter.submitList(sd) // list 변경
                 }
             }
         }

@@ -1,43 +1,26 @@
 package com.example.naversearch.adapter
 
-import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.example.naversearch.model.SearchData
+import androidx.recyclerview.widget.ListAdapter
+import com.example.naversearch.callback.TextDiffUtilCallback
 import com.example.naversearch.databinding.RvTextBinding
+import com.example.naversearch.model.SearchData
+import com.example.naversearch.viewholder.TextViewHolder
 
 
-class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
+class TextAdapter : ListAdapter<SearchData, TextViewHolder>(TextDiffUtilCallback()) {
 
-    private val datas = mutableListOf<SearchData>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder {
         val binding = RvTextBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return TextViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = datas.size
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(datas[position])
+    override fun onBindViewHolder(holder: TextViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addItem(item: MutableList<SearchData>) {
-        datas.clear()
-        datas.addAll(item)
-        notifyDataSetChanged()
+    override fun submitList(list: List<SearchData>?) {
+        super.submitList(list)
     }
-
-    inner class ViewHolder(private val binding: RvTextBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: SearchData) { //데이터 넣기
-            binding.tvTitle.text = item.title
-            binding.tvContents.text = item.description
-        }
-    }
-
-
 }

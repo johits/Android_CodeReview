@@ -68,7 +68,7 @@ class Blog : Fragment() {
                 val api = retrofit.create(NaverAPI::class.java)
 
                 //예외처리 (아무것도 입력하지 않고 검색했을 경우)
-                if (!keyword.equals("")) {
+                if (keyword != "") {
                     val callGetSearchNews = api.getSearchNews("blog", keyword)
                     callGetSearchNews.enqueue(object : Callback<ResultGetSearch> {
                         override fun onResponse(
@@ -122,7 +122,7 @@ class Blog : Fragment() {
                                 )
                                 reqArray.put(jsonObject)
                             }
-                            textAdapter.addItem(sd)
+                            textAdapter.submitList(sd) // list 변경
                             editor.putString("blog", reqArray.toString())
                             editor.apply()
                         }
@@ -134,7 +134,7 @@ class Blog : Fragment() {
                     })
                 } else {
                     sd.clear()
-                    textAdapter.addItem(sd)
+                    textAdapter.submitList(sd) // list 변경
                 }
             }
             binding.btnBlogGet -> {
@@ -147,7 +147,7 @@ class Blog : Fragment() {
                     sd.add(SearchData(title, description, "", ""))
 
                 }
-                textAdapter.addItem(sd)
+                textAdapter.submitList(sd) // list 변경
             }
         }
 

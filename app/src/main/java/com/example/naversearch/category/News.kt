@@ -115,7 +115,7 @@ class News : Fragment() {
 
                                 reqArray.put(jsonObject)
                             }
-                            textAdapter.addItem(sd)
+                            textAdapter.submitList(sd)
                             editor.putString("news", reqArray.toString())
                             editor.apply()
                         }
@@ -127,7 +127,7 @@ class News : Fragment() {
                     })
                 } else {
                     sd.clear()
-                    textAdapter.addItem(sd)
+                    textAdapter.submitList(sd)
                 }
             }
 
@@ -141,7 +141,7 @@ class News : Fragment() {
                     val title = jsonArray.getJSONObject(i).getString("title")
                     val description = jsonArray.getJSONObject(i).getString("description")
                     sd.add(SearchData(title, description, "", ""))
-                    textAdapter.addItem(sd)
+                    textAdapter.submitList(sd)
                 }
 
             }
