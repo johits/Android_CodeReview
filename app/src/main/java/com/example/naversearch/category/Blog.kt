@@ -35,6 +35,7 @@ class Blog : Fragment() {
             binding.btnBlog -> {
                 val keyword = binding.etBlog.text.toString()
                 model.search("blog", "blog", keyword, requireContext(), binding.rvBlog)
+                binding.etBlog.setText("")
             }
 
             binding.btnBlogGet -> {

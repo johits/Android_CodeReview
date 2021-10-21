@@ -32,6 +32,7 @@ class Cafe : Fragment() {
             binding.btnCafe -> {
                 val keyword = binding.etCafe.text.toString()
                 model.search("cafe", "cafearticle", keyword, requireContext(), binding.rvCafe)
+                binding.etCafe.setText("")
             }
 
             binding.btnCafeGet -> {

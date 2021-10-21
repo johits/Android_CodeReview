@@ -30,6 +30,7 @@ class News : Fragment() {
             binding.btnNews -> {
                 val keyword = binding.etNews.text.toString()
                 model.search("news", "news", keyword, requireContext(), binding.rvNews)
+                binding.etNews.setText("")
             }
 
             binding.btnNewsGet -> {
