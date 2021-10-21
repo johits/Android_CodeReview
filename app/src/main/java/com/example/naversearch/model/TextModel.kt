@@ -44,8 +44,8 @@ class TextModel {
 
         //예외처리 (아무것도 입력하지 않고 검색했을 경우)
         if (keyword != "") {
-            val callGetSearchNews = api.getSearchNews(category, keyword)
-            callGetSearchNews.enqueue(object : Callback<ResultGetSearch> {
+            val callGetSearch = api.getSearchNews(category, keyword)
+            callGetSearch.enqueue(object : Callback<ResultGetSearch> {
                 override fun onResponse(
                     call: Call<ResultGetSearch>,
                     response: Response<ResultGetSearch>,
