@@ -1,9 +1,9 @@
 package com.example.naversearch.model
 
 import android.content.Context
-import android.util.Log
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.naversearch.ResultGetSearch
 import com.example.naversearch.adapter.TextAdapter
 import org.json.JSONArray
 import org.json.JSONObject
@@ -26,7 +26,6 @@ class TextModel {
         context: Context,
         rv: RecyclerView
     ) {
-        rv.adapter = textAdapter
 
         //쉐어드 프리퍼런스
         val sharedPreferences =
@@ -35,7 +34,6 @@ class TextModel {
 
         sd.clear()
         sharedPreferences.getString(type, "")
-
         val retrofit = Retrofit.Builder()
             .baseUrl(CommonVariable.BASE_URL_NAVER_API)
             .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 사용
@@ -97,13 +95,13 @@ class TextModel {
                         )
                         reqArray.put(jsonObject)
                     }
-                    textAdapter.submitList(sd)
                     editor.putString(type, reqArray.toString())
                     editor.apply()
+                    textAdapter.submitList(sd)
+                    rv.adapter = textAdapter
                 }
 
                 override fun onFailure(call: Call<ResultGetSearch>, t: Throwable) {
-                    Log.d("MainActivity", "실패 : $t")
                 }
 
             })
@@ -114,7 +112,6 @@ class TextModel {
     }
 
     fun lookUp(type: String, context: Context, rv: RecyclerView) {
-        rv.adapter = textAdapter
         val sharedPreferences =
             context.getSharedPreferences(type, Context.MODE_PRIVATE)
         sharedPreferences.getString(type, "")
@@ -126,8 +123,8 @@ class TextModel {
             val title = jsonArray.getJSONObject(i).getString("title")
             val description = jsonArray.getJSONObject(i).getString("description")
             sd.add(SearchData(title, description, "", ""))
-
             textAdapter.submitList(sd)
+            rv.adapter = textAdapter
         }
 
     }
