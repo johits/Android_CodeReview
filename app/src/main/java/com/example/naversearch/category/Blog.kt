@@ -34,11 +34,11 @@ class Blog : Fragment() {
         when (v) {
             binding.btnBlog -> {
                 val keyword = binding.etBlog.text.toString()
-                model.search("blog", "blog", keyword, requireContext(), binding.rv)
+                model.search("blog", "blog", keyword, requireContext(), binding.rvBlog)
             }
 
             binding.btnBlogGet -> {
-                model.lookUp("blog", requireContext(), binding.rv)
+                model.lookUp("blog", requireContext(), binding.rvBlog)
             }
         }
     }
