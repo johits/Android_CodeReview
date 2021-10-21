@@ -1,9 +1,11 @@
 package com.example.naversearch.model
 
 import android.content.Context
+import android.util.Log
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
+import com.example.naversearch.adapter.ImageAdapter
 import com.example.naversearch.adapter.TextAdapter
 import org.json.JSONArray
 import org.json.JSONObject
@@ -14,8 +16,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class TextModel {
+class Model {
     private val textAdapter = TextAdapter()
+    private val imageAdapter = ImageAdapter()
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
 
@@ -42,7 +45,7 @@ class TextModel {
 
         //예외처리 (아무것도 입력하지 않고 검색했을 경우)
         if (keyword != "") {
-            val callGetSearch = api.getSearchNews(category, keyword)
+            val callGetSearch = api.getSearch(category, keyword)
             callGetSearch.enqueue(object : Callback<ResultGetSearch> {
                 override fun onResponse(
                     call: Call<ResultGetSearch>,
@@ -62,7 +65,13 @@ class TextModel {
                                 HtmlCompat.fromHtml(
                                     item.description,
                                     HtmlCompat.FROM_HTML_MODE_LEGACY
-                                ).toString()
+                                ).toString(),
+
+                                HtmlCompat.fromHtml(
+                                    item.thumbnail,
+                                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                                )
+                                    .toString(),
                             )
                         )
 
@@ -97,8 +106,14 @@ class TextModel {
                     }
                     editor.putString(type, reqArray.toString())
                     editor.apply()
-                    textAdapter.submitList(sd)
-                    rv.adapter = textAdapter
+
+                    if (type == "image") {
+                        imageAdapter.submitList(sd)
+                        rv.adapter = imageAdapter
+                    } else {
+                        textAdapter.submitList(sd)
+                        rv.adapter = textAdapter
+                    }
                 }
 
                 override fun onFailure(call: Call<ResultGetSearch>, t: Throwable) {
@@ -107,24 +122,40 @@ class TextModel {
             })
         } else {
             sd.clear()
-            textAdapter.submitList(sd)
+            if (type == "image") {
+                imageAdapter.submitList(sd)
+                rv.adapter = imageAdapter
+            } else {
+                textAdapter.submitList(sd)
+                rv.adapter = textAdapter
+            }
         }
     }
 
     fun lookUp(type: String, context: Context, rv: RecyclerView) {
         val sharedPreferences =
             context.getSharedPreferences(type, Context.MODE_PRIVATE)
+
+        sd.clear()
         sharedPreferences.getString(type, "")
 
         //shared prefrence 불러와서 json 파싱하기
         val jsonArray =
             JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
         for (i in 0 until jsonArray.length()) {
-            val title = jsonArray.getJSONObject(i).getString("title")
-            val description = jsonArray.getJSONObject(i).getString("description")
-            sd.add(SearchData(title, description, "", ""))
-            textAdapter.submitList(sd)
-            rv.adapter = textAdapter
+            if (type == "image") {
+                val thumbnail = jsonArray.getJSONObject(i).getString("thumbnail")
+                sd.add(SearchData("", "", thumbnail, ""))
+                imageAdapter.submitList(sd)
+                rv.adapter = imageAdapter
+
+            } else {
+                val title = jsonArray.getJSONObject(i).getString("title")
+                val description = jsonArray.getJSONObject(i).getString("description")
+                sd.add(SearchData(title, description, "", ""))
+                textAdapter.submitList(sd)
+                rv.adapter = textAdapter
+            }
         }
 
     }

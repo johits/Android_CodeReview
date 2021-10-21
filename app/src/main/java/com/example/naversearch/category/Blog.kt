@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.naversearch.databinding.FrgBlogBinding
-import com.example.naversearch.model.TextModel
+import com.example.naversearch.model.Model
 
 
 @SuppressLint("ResourceType")
 class Blog : Fragment() {
     private lateinit var binding: FrgBlogBinding
-    val model = TextModel()
+    val model = Model()
 
     override fun onCreateView(
         inflater: LayoutInflater,

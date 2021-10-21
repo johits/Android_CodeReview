@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.naversearch.databinding.FrgNewsBinding
-import com.example.naversearch.model.TextModel
+import com.example.naversearch.model.Model
 
 class News : Fragment() {
     private lateinit var binding: FrgNewsBinding
-    val model = TextModel()
+    val model = Model()
 
     override fun onCreateView(
         inflater: LayoutInflater,
