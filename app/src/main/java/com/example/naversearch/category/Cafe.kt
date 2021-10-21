@@ -11,8 +11,8 @@ import com.example.naversearch.model.Model
 class Cafe : Fragment() {
 
     private lateinit var binding: FrgCafeBinding
-    val model = Model()
-
+    val type = "cafe"
+    val category = "cafearticle"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,21 +23,8 @@ class Cafe : Fragment() {
 
         binding.apply {
             fragment = this@Cafe
+            model = Model()
         }
         return binding.root
-    }
-
-    fun result(v: View) {
-        when (v) {
-            binding.btnCafe -> {
-                val keyword = binding.etCafe.text.toString()
-                model.search("cafe", "cafearticle", keyword, requireContext(), binding.rvCafe)
-                binding.etCafe.setText("")
-            }
-
-            binding.btnCafeGet -> {
-                model.lookUp("cafe", requireContext(), binding.rvCafe)
-            }
-        }
     }
 }

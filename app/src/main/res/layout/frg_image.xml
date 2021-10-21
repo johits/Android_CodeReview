@@ -6,6 +6,10 @@
         <variable
             name="fragment"
             type="com.example.naversearch.category.Image" />
+
+        <variable
+            name="model"
+            type="com.example.naversearch.model.Model" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{fragment::result}"
+                android:onClick="@{() ->model.search(fragment.type, fragment.category, etImage.getText().toString(), fragment.context,rvImage)}"
                 android:text="검색"
                 android:textSize="13sp" />
 
@@ -41,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:onClick="@{fragment::result}"
+                android:onClick="@{() -> model.lookUp(fragment.type,fragment.context,rvImage)}"
                 android:text="조회"
                 android:textSize="13sp" />
 

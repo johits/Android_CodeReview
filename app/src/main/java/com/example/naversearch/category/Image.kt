@@ -11,8 +11,8 @@ import com.example.naversearch.model.Model
 class Image : Fragment() {
 
     lateinit var binding: FrgImageBinding
-    val model = Model()
-
+    val type = "image"
+    val category = "image"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,22 +22,9 @@ class Image : Fragment() {
 
         binding.apply {
             fragment = this@Image
+            model = Model()
         }
 
         return binding.root
-    }
-
-    fun result(v: View) {
-        when (v) {
-            binding.btnImage -> {
-                val keyword = binding.etImage.text.toString()
-                model.search("image", "image", keyword, requireContext(), binding.rvImage)
-                binding.etImage.setText("")
-            }
-
-            binding.btnImageGet -> {
-                model.lookUp("image", requireContext(), binding.rvImage)
-            }
-        }
     }
 }

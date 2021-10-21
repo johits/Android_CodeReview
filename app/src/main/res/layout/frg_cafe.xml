@@ -4,6 +4,10 @@
         <variable
             name="fragment"
             type="com.example.naversearch.category.Cafe" />
+
+        <variable
+            name="model"
+            type="com.example.naversearch.model.Model" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -28,7 +32,7 @@
             android:layout_weight="1"
             android:textSize="13sp"
             android:text="검색"
-            android:onClick="@{fragment.result}"/>
+            android:onClick="@{() ->model.search(fragment.type, fragment.category, etCafe.getText().toString(), fragment.context,rvCafe)}"/>
 
         <Button
             android:id="@+id/btn_cafe_get"
@@ -38,7 +42,7 @@
             android:textSize="13sp"
             android:layout_marginLeft="4dp"
             android:text="조회"
-            android:onClick="@{fragment.result}"/>
+            android:onClick="@{() -> model.lookUp(fragment.type,fragment.context,rvCafe)}"/>
 
     </LinearLayout>
 

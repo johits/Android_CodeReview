@@ -10,7 +10,8 @@ import com.example.naversearch.model.Model
 
 class News : Fragment() {
     private lateinit var binding: FrgNewsBinding
-    val model = Model()
+    val type = "news"
+    val category = "news"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,22 +22,8 @@ class News : Fragment() {
 
         binding.apply {
             fragment = this@News
+            model = Model()
         }
         return binding.root
     }
-
-    fun result(v: View) {
-        when (v) {
-            binding.btnNews -> {
-                val keyword = binding.etNews.text.toString()
-                model.search("news", "news", keyword, requireContext(), binding.rvNews)
-                binding.etNews.setText("")
-            }
-
-            binding.btnNewsGet -> {
-                model.lookUp("news", requireContext(), binding.rvNews)
-            }
-        }
-    }
-
 }

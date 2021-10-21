@@ -4,6 +4,9 @@
         <variable
             name="fragment"
             type="com.example.naversearch.category.News" />
+        <variable
+            name="model"
+            type="com.example.naversearch.model.Model" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -31,7 +34,7 @@
             android:layout_weight="1"
             android:text="검색"
             android:textSize="13sp"
-            android:onClick="@{fragment::result}"/>
+            android:onClick="@{() ->model.search(fragment.type, fragment.category, etNews.getText().toString(), fragment.context,rvNews)}"/>
 
         <Button
             android:id="@+id/btn_news_get"
@@ -41,7 +44,7 @@
             android:layout_weight="1"
             android:text="조회"
             android:textSize="13sp"
-            android:onClick="@{fragment::result}"/>
+            android:onClick="@{() -> model.lookUp(fragment.type,fragment.context,rvNews)}"/>
 
     </LinearLayout>
 

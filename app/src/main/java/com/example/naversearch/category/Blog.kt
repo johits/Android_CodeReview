@@ -13,8 +13,8 @@ import com.example.naversearch.model.Model
 @SuppressLint("ResourceType")
 class Blog : Fragment() {
     private lateinit var binding: FrgBlogBinding
-    val model = Model()
-
+    val type = "blog"
+    val category = "blog"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,23 +25,9 @@ class Blog : Fragment() {
 
         binding.apply {
             fragment = this@Blog
+            model = Model()
         }
         return binding.root
-    }
-
-
-    fun result(v: View) {
-        when (v) {
-            binding.btnBlog -> {
-                val keyword = binding.etBlog.text.toString()
-                model.search("blog", "blog", keyword, requireContext(), binding.rvBlog)
-                binding.etBlog.setText("")
-            }
-
-            binding.btnBlogGet -> {
-                model.lookUp("blog", requireContext(), binding.rvBlog)
-            }
-        }
     }
 }
 
