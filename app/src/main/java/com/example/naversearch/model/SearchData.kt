@@ -8,7 +8,7 @@ data class SearchData(
     val description: String = "",
 
     //이미지
-    val thumbnail:String = "",
+    val thumbnail:String? = "",
 
     //하이퍼텍스트 link
     val link:String = ""
