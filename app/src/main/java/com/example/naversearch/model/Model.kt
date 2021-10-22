@@ -1,7 +1,6 @@
 package com.example.naversearch.model
 
 import android.content.Context
-import android.util.Log
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
@@ -34,9 +33,7 @@ class Model {
         val sharedPreferences =
             context.getSharedPreferences(type, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-
         sd.clear()
-        sharedPreferences.getString(type, "")
         val retrofit = Retrofit.Builder()
             .baseUrl(CommonVariable.BASE_URL_NAVER_API)
             .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 사용
@@ -106,7 +103,6 @@ class Model {
                     }
                     editor.putString(type, reqArray.toString())
                     editor.apply()
-
                     if (type == "image") {
                         imageAdapter.submitList(sd)
                         rv.adapter = imageAdapter
@@ -135,7 +131,6 @@ class Model {
     fun lookUp(type: String, context: Context, rv: RecyclerView) {
         val sharedPreferences =
             context.getSharedPreferences(type, Context.MODE_PRIVATE)
-
         sd.clear()
         sharedPreferences.getString(type, "")
 
