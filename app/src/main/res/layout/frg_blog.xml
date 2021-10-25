@@ -29,7 +29,7 @@
                 android:id="@+id/et_blog"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:hint="블로그 검색어를 입렵해주세요"
+                android:hint="@string/blog_hint"
                 android:textSize="16sp" />
 
             <Button
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="@{() ->model.search(fragment.type, fragment.category, etBlog.getText().toString(), fragment.context,rvBlog)}"
-                android:text="검색"
+                android:text="@string/search"
                 android:textSize="13sp" />
 
             <Button
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:onClick="@{() -> model.lookUp(fragment.type,fragment.context,rvBlog)}"
-                android:text="조회"
+                android:text="@string/read"
                 android:textSize="13sp" />
 
         </LinearLayout>

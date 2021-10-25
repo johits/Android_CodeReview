@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">naversearch</string>
+    <string name="blog">블로그</string>
+    <string name="cafe">카페</string>
+    <string name="news">뉴스</string>
+    <string name="image">이미지</string>
+    <string name="blog_hint">블로그 검색어를 입렵해주세요</string>
+    <string name="cafe_hint">카페 검색어를 입렵해주세요</string>
+    <string name="news_hint">뉴스 검색어를 입렵해주세요</string>
+    <string name="image_hint">이미지 검색어를 입렵해주세요</string>
+    <string name="search">검색</string>
+    <string name="read">조회</string>
 </resources>
