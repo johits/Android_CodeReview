@@ -18,8 +18,4 @@ class ImageAdapter : ListAdapter<SearchData, ImageViewHolder>(DiffUtilCallback()
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-    override fun submitList(list: List<SearchData>?) {
-        super.submitList(list)
-    }
 }
