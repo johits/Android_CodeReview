@@ -8,8 +8,8 @@ class TextViewHolder(private val binding: RvTextBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: SearchData) {
         binding.apply {
-            binding.tvTitle.text = item.title
-            binding.tvContents.text = item.description
+           tvTitle.text = item.title
+           tvContents.text = item.description
         }
     }
 }
