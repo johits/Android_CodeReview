@@ -1,6 +1,7 @@
 package com.example.naversearch.model
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
@@ -32,7 +33,7 @@ class Model {
         //쉐어드 프리퍼런스
         val sharedPreferences =
             context.getSharedPreferences(type, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+
         sd.clear()
         val retrofit = Retrofit.Builder()
             .baseUrl(CommonVariable.BASE_URL_NAVER_API)
@@ -69,6 +70,12 @@ class Model {
                                     HtmlCompat.FROM_HTML_MODE_LEGACY
                                 )
                                     .toString(),
+
+                                HtmlCompat.fromHtml(
+                                    item.link,
+                                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                                )
+                                    .toString()
                             )
                         )
 
@@ -101,8 +108,10 @@ class Model {
                         )
                         reqArray.put(jsonObject)
                     }
-                    editor.putString(type, reqArray.toString())
-                    editor.apply()
+
+                    sharedPreferences.edit(commit = true){
+                        putString(type, reqArray.toString())
+                    }
                     if (type == "image") {
                         imageAdapter.submitList(sd)
                         rv.adapter = imageAdapter
