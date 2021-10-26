@@ -42,7 +42,7 @@ class Model {
         val api = retrofit.create(NaverAPI::class.java)
 
         //예외처리 (아무것도 입력하지 않고 검색했을 경우)
-        if (keyword != "") {
+        if (keyword.isNotEmpty()) {
             val callGetSearch = api.getSearch(category, keyword)
             callGetSearch.enqueue(object : Callback<ResultGetSearch> {
                 override fun onResponse(
