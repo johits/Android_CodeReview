@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.naversearch.databinding.FrgNewsBinding
-import com.example.naversearch.model.Model
+import com.example.naversearch.model.NaverViewModel
 
 class News : Fragment() {
     private lateinit var binding: FrgNewsBinding
@@ -22,7 +22,7 @@ class News : Fragment() {
 
         binding.apply {
             fragment = this@News
-            model = Model()
+            model = NaverViewModel()
         }
         return binding.root
     }

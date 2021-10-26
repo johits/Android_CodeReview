@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.naversearch.databinding.FrgBlogBinding
-import com.example.naversearch.model.Model
+import com.example.naversearch.model.NaverViewModel
 
 
 @SuppressLint("ResourceType")
@@ -25,7 +25,7 @@ class Blog : Fragment() {
 
         binding.apply {
             fragment = this@Blog
-            model = Model()
+            model = NaverViewModel()
         }
         return binding.root
     }

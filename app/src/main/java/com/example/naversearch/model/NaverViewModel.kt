@@ -16,7 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Model {
+class NaverViewModel {
     private val textAdapter = TextAdapter()
     private val imageAdapter = ImageAdapter()
     private val sd = mutableListOf<SearchData>()
