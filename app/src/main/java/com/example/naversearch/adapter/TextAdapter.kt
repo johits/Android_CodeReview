@@ -19,8 +19,4 @@ class TextAdapter : ListAdapter<SearchData, TextViewHolder>(DiffUtilCallback()) 
     override fun onBindViewHolder(holder: TextViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-    override fun submitList(list: List<SearchData>?) {
-        super.submitList(list)
-    }
 }
