@@ -8,8 +8,8 @@
             type="com.example.naversearch.category.Blog" />
 
         <variable
-            name="model"
-            type="com.example.naversearch.model.NaverViewModel" />
+            name="naverModel"
+            type="com.example.naversearch.model.NaverModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->model.search(fragment.BLOG_TYPE, fragment.BLOG_CATEGORY, etBlog.getText().toString(), fragment.context,rvBlog)}"
+                android:onClick="@{() ->naverModel.search(fragment.BLOG_TYPE, fragment.BLOG_CATEGORY, etBlog.getText().toString(), fragment.context,rvBlog)}"
                 android:text="@string/search"
                 android:textSize="13sp" />
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> model.lookUp(fragment.BLOG_TYPE,fragment.context,rvBlog)}"
+                android:onClick="@{() -> naverModel.lookUp(fragment.BLOG_TYPE,fragment.context,rvBlog)}"
                 android:text="@string/read"
                 android:textSize="13sp" />
 

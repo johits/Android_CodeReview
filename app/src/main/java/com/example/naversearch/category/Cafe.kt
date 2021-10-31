@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.naversearch.databinding.FrgCafeBinding
-import com.example.naversearch.model.NaverViewModel
+import com.example.naversearch.model.NaverModel
 
 class Cafe : Fragment() {
 
@@ -22,7 +22,7 @@ class Cafe : Fragment() {
 
         binding.apply {
             fragment = this@Cafe
-            model = NaverViewModel()
+            naverModel = NaverModel()
         }
         return binding.root
     }

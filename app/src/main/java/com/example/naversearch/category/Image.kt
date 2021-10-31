@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.naversearch.databinding.FrgImageBinding
-import com.example.naversearch.model.NaverViewModel
+import com.example.naversearch.model.NaverModel
 
 class Image : Fragment() {
 
@@ -21,7 +21,7 @@ class Image : Fragment() {
 
         binding.apply {
             fragment = this@Image
-            model = NaverViewModel()
+            naverModel = NaverModel()
         }
 
         return binding.root

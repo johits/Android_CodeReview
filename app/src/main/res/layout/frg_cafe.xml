@@ -8,8 +8,8 @@
             type="com.example.naversearch.category.Cafe" />
 
         <variable
-            name="model"
-            type="com.example.naversearch.model.NaverViewModel" />
+            name="naverModel"
+            type="com.example.naversearch.model.NaverModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->model.search(fragment.CAFE_TYPE, fragment.CAFE_CATEGORY, etCafe.getText().toString(), fragment.context,rvCafe)}"
+                android:onClick="@{() ->naverModel.search(fragment.CAFE_TYPE, fragment.CAFE_CATEGORY, etCafe.getText().toString(), fragment.context,rvCafe)}"
                 android:text="@string/search"
                 android:textSize="13sp" />
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> model.lookUp(fragment.CAFE_TYPE,fragment.context,rvCafe)}"
+                android:onClick="@{() -> naverModel.lookUp(fragment.CAFE_TYPE,fragment.context,rvCafe)}"
                 android:text="@string/read"
                 android:textSize="13sp" />
 

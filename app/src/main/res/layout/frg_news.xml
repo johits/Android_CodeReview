@@ -8,8 +8,8 @@
             type="com.example.naversearch.category.News" />
 
         <variable
-            name="model"
-            type="com.example.naversearch.model.NaverViewModel" />
+            name="naverModel"
+            type="com.example.naversearch.model.NaverModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,7 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->model.search(fragment.NEWS_TYPE, fragment.NEWS_CATEGORY, etNews.getText().toString(), fragment.context,rvNews)}"
+                android:onClick="@{() ->naverModel.search(fragment.NEWS_TYPE, fragment.NEWS_CATEGORY, etNews.getText().toString(), fragment.context,rvNews)}"
                 android:text="@string/search"
                 android:textSize="13sp" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> model.lookUp(fragment.NEWS_TYPE,fragment.context,rvNews)}"
+                android:onClick="@{() -> naverModel.lookUp(fragment.NEWS_TYPE,fragment.context,rvNews)}"
                 android:text="@string/read"
                 android:textSize="13sp" />
 
