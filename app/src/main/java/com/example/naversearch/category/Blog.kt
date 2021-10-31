@@ -13,8 +13,7 @@ import com.example.naversearch.model.NaverViewModel
 @SuppressLint("ResourceType")
 class Blog : Fragment() {
     private lateinit var binding: FrgBlogBinding
-    val type = "blog"
-    val category = "blog"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,6 +27,11 @@ class Blog : Fragment() {
             model = NaverViewModel()
         }
         return binding.root
+    }
+
+    companion object {
+        const val BLOG_TYPE = "blog"
+        const val BLOG_CATEGORY = "blog"
     }
 }
 

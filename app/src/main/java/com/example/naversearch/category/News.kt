@@ -9,9 +9,8 @@ import com.example.naversearch.databinding.FrgNewsBinding
 import com.example.naversearch.model.NaverViewModel
 
 class News : Fragment() {
+
     private lateinit var binding: FrgNewsBinding
-    val type = "news"
-    val category = "news"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,5 +24,10 @@ class News : Fragment() {
             model = NaverViewModel()
         }
         return binding.root
+    }
+
+    companion object {
+        const val NEWS_TYPE = "news"
+        const val NEWS_CATEGORY = "news"
     }
 }

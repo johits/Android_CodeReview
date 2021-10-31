@@ -11,8 +11,7 @@ import com.example.naversearch.model.NaverViewModel
 class Cafe : Fragment() {
 
     private lateinit var binding: FrgCafeBinding
-    val type = "cafe"
-    val category = "cafearticle"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,5 +25,10 @@ class Cafe : Fragment() {
             model = NaverViewModel()
         }
         return binding.root
+    }
+
+    companion object {
+        const val CAFE_TYPE = "cafe"
+        const val CAFE_CATEGORY = "cafearticle"
     }
 }

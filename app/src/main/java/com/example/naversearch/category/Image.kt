@@ -11,8 +11,7 @@ import com.example.naversearch.model.NaverViewModel
 class Image : Fragment() {
 
     lateinit var binding: FrgImageBinding
-    val type = "image"
-    val category = "image"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,5 +25,10 @@ class Image : Fragment() {
         }
 
         return binding.root
+    }
+
+    companion object {
+        const val IMAGE_TYPE = "image"
+        const val IMAGE_CATEGORY = "image"
     }
 }
