@@ -147,7 +147,7 @@ class NaverModel {
         val jsonArray =
             JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
         for (i in 0 until jsonArray.length()) {
-            if (type == "image") {
+            if (type == DIFF_TYPE) {
                 val thumbnail = jsonArray.getJSONObject(i).getString("thumbnail")
                 sd.add(SearchData("", "", thumbnail, ""))
                 imageAdapter.submitList(sd)
@@ -162,5 +162,9 @@ class NaverModel {
             }
         }
 
+    }
+
+    companion object{
+        const val DIFF_TYPE = "image"
     }
 }
