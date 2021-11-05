@@ -26,7 +26,7 @@ class Blog : Fragment() {
 
         binding.apply {
             fragment = this@Blog
-            naverModel = NaverModel(requireActivity().application)
+            naverModel = NaverModel(requireActivity().application, BLOG_TYPE)
         }
         return binding.root
     }

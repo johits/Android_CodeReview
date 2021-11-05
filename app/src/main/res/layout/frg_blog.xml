@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->naverModel.search(fragment.BLOG_TYPE, fragment.BLOG_CATEGORY, etBlog.getText().toString(), rvBlog)}"
+                android:onClick="@{() ->naverModel.search(fragment.BLOG_CATEGORY, etBlog.getText().toString(), rvBlog)}"
                 android:text="@string/search"
                 android:textSize="13sp" />
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> naverModel.lookUp(fragment.BLOG_TYPE,rvBlog)}"
+                android:onClick="@{() -> naverModel.lookUp(rvBlog)}"
                 android:text="@string/read"
                 android:textSize="13sp" />
 

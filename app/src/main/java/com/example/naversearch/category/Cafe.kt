@@ -23,7 +23,7 @@ class Cafe : Fragment() {
 
         binding.apply {
             fragment = this@Cafe
-            naverModel = NaverModel(requireActivity().application)
+            naverModel = NaverModel(requireActivity().application, CAFE_TYPE)
         }
         return binding.root
     }

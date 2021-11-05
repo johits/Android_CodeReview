@@ -1,6 +1,5 @@
 package com.example.naversearch.model
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.os.SystemClock
@@ -19,8 +18,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NaverModel(application: Application) : AndroidViewModel(application) {
-    @SuppressLint("StaticFieldLeak")
+class NaverModel(application: Application, type: String) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
     private val textAdapter = TextAdapter()
     private val imageAdapter = ImageAdapter()
@@ -29,17 +27,16 @@ class NaverModel(application: Application) : AndroidViewModel(application) {
     private var mLastClickTime = 0L
     var gson = Gson()
     var json = ""
+    val type = type
+    private val sharedPreferences =
+        context.getSharedPreferences(type, MODE_PRIVATE)
 
     fun search(
-        type: String,
         category: String,
         keyword: String,
         rv: RecyclerView
     ) { //1초 이내 중복 클릭 방지
         if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
-            //쉐어드 프리퍼런스
-            val sharedPreferences =
-                context.getSharedPreferences(type, MODE_PRIVATE)
 
             sd.clear()
             val retrofit = Retrofit.Builder()
@@ -111,9 +108,7 @@ class NaverModel(application: Application) : AndroidViewModel(application) {
         mLastClickTime = SystemClock.elapsedRealtime()
     }
 
-    fun lookUp(type: String, rv: RecyclerView) {
-        val sharedPreferences =
-            context.getSharedPreferences(type, MODE_PRIVATE)
+    fun lookUp(rv: RecyclerView) {
         sd.clear()
         sharedPreferences.getString(type, "")
 

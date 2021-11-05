@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->naverModel.search(fragment.IMAGE_TYPE, fragment.IMAGE_CATEGORY, etImage.getText().toString(), rvImage)}"
+                android:onClick="@{() ->naverModel.search(fragment.IMAGE_CATEGORY, etImage.getText().toString(), rvImage)}"
                 android:text="검색"
                 android:textSize="13sp" />
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> naverModel.lookUp(fragment.IMAGE_TYPE, rvImage)}"
+                android:onClick="@{() -> naverModel.lookUp(rvImage)}"
                 android:text="조회"
                 android:textSize="13sp" />
 
