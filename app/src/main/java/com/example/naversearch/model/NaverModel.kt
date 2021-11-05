@@ -1,9 +1,11 @@
 package com.example.naversearch.model
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context.MODE_PRIVATE
 import android.os.SystemClock
-import android.util.Log
 import androidx.core.content.edit
+import androidx.lifecycle.AndroidViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
 import com.example.naversearch.adapter.ImageAdapter
@@ -17,7 +19,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NaverModel {
+class NaverModel(application: Application) : AndroidViewModel(application) {
+    @SuppressLint("StaticFieldLeak")
+    private val context = getApplication<Application>().applicationContext
     private val textAdapter = TextAdapter()
     private val imageAdapter = ImageAdapter()
     private val sd = mutableListOf<SearchData>()
@@ -30,13 +34,12 @@ class NaverModel {
         type: String,
         category: String,
         keyword: String,
-        context: Context,
         rv: RecyclerView
     ) { //1초 이내 중복 클릭 방지
         if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
             //쉐어드 프리퍼런스
             val sharedPreferences =
-                context.getSharedPreferences(type, Context.MODE_PRIVATE)
+                context.getSharedPreferences(type, MODE_PRIVATE)
 
             sd.clear()
             val retrofit = Retrofit.Builder()
@@ -108,9 +111,9 @@ class NaverModel {
         mLastClickTime = SystemClock.elapsedRealtime()
     }
 
-    fun lookUp(type: String, context: Context, rv: RecyclerView) {
+    fun lookUp(type: String, rv: RecyclerView) {
         val sharedPreferences =
-            context.getSharedPreferences(type, Context.MODE_PRIVATE)
+            context.getSharedPreferences(type, MODE_PRIVATE)
         sd.clear()
         sharedPreferences.getString(type, "")
 
@@ -119,12 +122,12 @@ class NaverModel {
             JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
         for (i in 0 until jsonArray.length()) {
             if (type == DIFF_TYPE) {
-                sd.add(gson.fromJson(jsonArray[i].toString(),SearchData::class.java))
+                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
                 imageAdapter.submitList(sd)
                 rv.adapter = imageAdapter
 
             } else {
-                sd.add(gson.fromJson(jsonArray[i].toString(),SearchData::class.java))
+                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
                 textAdapter.submitList(sd)
                 rv.adapter = textAdapter
             }

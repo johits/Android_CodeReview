@@ -1,6 +1,8 @@
 package com.example.naversearch.category
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +26,7 @@ class Blog : Fragment() {
 
         binding.apply {
             fragment = this@Blog
-            naverModel = NaverModel()
+            naverModel = NaverModel(requireActivity().application)
         }
         return binding.root
     }

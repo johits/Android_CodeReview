@@ -1,5 +1,6 @@
 package com.example.naversearch.category
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class Image : Fragment() {
 
         binding.apply {
             fragment = this@Image
-            naverModel = NaverModel()
+            naverModel = NaverModel(requireActivity().application)
         }
 
         return binding.root
