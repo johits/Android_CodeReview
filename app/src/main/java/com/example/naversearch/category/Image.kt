@@ -22,7 +22,7 @@ class Image : Fragment() {
 
         binding.apply {
             fragment = this@Image
-            naverModel = NaverModel(requireActivity().application)
+            naverModel = NaverModel(requireActivity().application, IMAGE_TYPE)
         }
 
         return binding.root

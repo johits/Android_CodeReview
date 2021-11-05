@@ -22,7 +22,7 @@ class News : Fragment() {
 
         binding.apply {
             fragment = this@News
-            naverModel = NaverModel(requireActivity().application)
+            naverModel = NaverModel(requireActivity().application, NEWS_TYPE)
         }
         return binding.root
     }
