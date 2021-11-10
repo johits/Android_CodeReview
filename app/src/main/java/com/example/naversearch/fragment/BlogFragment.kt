@@ -11,7 +11,7 @@ import com.example.naversearch.model.NaverModel
 
 
 @SuppressLint("ResourceType")
-class Blog : Fragment() {
+class BlogFragment : Fragment() {
     private lateinit var binding: FrgBlogBinding
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class Blog : Fragment() {
         binding = FrgBlogBinding.inflate(inflater, container, false)
 
         binding.apply {
-            fragment = this@Blog
+            fragment = this@BlogFragment
             naverModel = NaverModel(requireActivity().application, BLOG_TYPE)
         }
         return binding.root

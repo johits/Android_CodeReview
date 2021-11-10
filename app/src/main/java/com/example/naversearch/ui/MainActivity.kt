@@ -7,10 +7,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.naversearch.R
 import com.example.naversearch.databinding.ActivityMainBinding
-import com.example.naversearch.fragment.Blog
-import com.example.naversearch.fragment.Cafe
-import com.example.naversearch.fragment.Image
-import com.example.naversearch.fragment.News
+import com.example.naversearch.fragment.BlogFragment
+import com.example.naversearch.fragment.CafeFragment
+import com.example.naversearch.fragment.ImageFragment
+import com.example.naversearch.fragment.NewsFragment
 
 
 private const val TAG_BLOG = "blog_fragment"
@@ -28,24 +28,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setFragment(TAG_BLOG, Blog())
+        setFragment(TAG_BLOG, BlogFragment())
 
         binding.btnBlog.setOnClickListener {
-            setFragment(TAG_BLOG, Blog())
+            setFragment(TAG_BLOG, BlogFragment())
         }
 
         binding.btnNews.setOnClickListener {
-            setFragment(TAG_NEWS, News())
+            setFragment(TAG_NEWS, NewsFragment())
 
         }
         binding.btnCafe.setOnClickListener {
             setFragment(
                 TAG_CAFE,
-                Cafe()
+                CafeFragment()
             )
         }
         binding.btnImage.setOnClickListener {
-            setFragment(TAG_IMAGE, Image())
+            setFragment(TAG_IMAGE, ImageFragment())
         }
 
     }

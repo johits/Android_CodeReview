@@ -5,30 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.naversearch.databinding.FrgImageBinding
+import com.example.naversearch.databinding.FrgCafeBinding
 import com.example.naversearch.model.NaverModel
 
-class Image : Fragment() {
+class CafeFragment : Fragment() {
 
-    lateinit var binding: FrgImageBinding
+    private lateinit var binding: FrgCafeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FrgImageBinding.inflate(inflater, container, false)
+
+        binding = FrgCafeBinding.inflate(inflater, container, false)
 
         binding.apply {
-            fragment = this@Image
-            naverModel = NaverModel(requireActivity().application, IMAGE_TYPE)
+            fragment = this@CafeFragment
+            naverModel = NaverModel(requireActivity().application, CAFE_TYPE)
         }
-
         return binding.root
     }
 
     companion object {
-        const val IMAGE_TYPE = "image"
-        const val IMAGE_CATEGORY = "image"
+        const val CAFE_TYPE = "cafe"
+        const val CAFE_CATEGORY = "cafearticle"
     }
 }
