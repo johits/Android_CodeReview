@@ -5,7 +5,7 @@
 
         <variable
             name="fragment"
-            type="com.example.naversearch.category.News" />
+            type="com.example.naversearch.fragment.News" />
 
         <variable
             name="naverModel"

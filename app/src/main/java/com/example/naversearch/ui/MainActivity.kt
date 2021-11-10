@@ -7,10 +7,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.naversearch.R
 import com.example.naversearch.databinding.ActivityMainBinding
-import com.example.naversearch.category.Blog
-import com.example.naversearch.category.Cafe
-import com.example.naversearch.category.Image
-import com.example.naversearch.category.News
+import com.example.naversearch.fragment.Blog
+import com.example.naversearch.fragment.Cafe
+import com.example.naversearch.fragment.Image
+import com.example.naversearch.fragment.News
 
 
 private const val TAG_BLOG = "blog_fragment"

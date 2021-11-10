@@ -1,8 +1,6 @@
-package com.example.naversearch.category
+package com.example.naversearch.fragment
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
