@@ -36,7 +36,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->naverModel.search(fragment.NEWS_CATEGORY, etNews.getText().toString(), rvNews)}"
                 android:text="@string/search"
                 android:textSize="13sp" />
 

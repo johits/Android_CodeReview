@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgBlogBinding
 import com.example.naversearch.model.NaverModel
 
@@ -13,6 +17,14 @@ import com.example.naversearch.model.NaverModel
 @SuppressLint("ResourceType")
 class BlogFragment : Fragment() {
     private lateinit var binding: FrgBlogBinding
+    private val blogFragmentViewModel: BlogFragmentViewModel by lazy {
+        ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                BlogFragmentViewModel() as T
+        }).get(BlogFragmentViewModel::class.java)
+    }
+
+    private val textAdapter = TextAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,15 +36,26 @@ class BlogFragment : Fragment() {
 
         binding.apply {
             fragment = this@BlogFragment
-            naverModel = NaverModel(requireActivity().application, BLOG_TYPE)
+            rvBlog.adapter = textAdapter
+            btnBlog.setOnClickListener {blogFragmentViewModel.resultBlogSearch(etBlog.text.toString())}
+            blogFragmentViewModel.getAll().observe(requireActivity()){
+                textAdapter.submitList(it)
+            }
         }
+        setRecyclerView()
         return binding.root
     }
 
-    companion object {
-        const val BLOG_TYPE = "blog"
-        const val BLOG_CATEGORY = "blog"
+    private fun setRecyclerView() {
+        with(binding){
+            rvBlog.adapter = textAdapter
+        }
     }
+
+//    companion object {
+//        const val BLOG_TYPE = "blog"
+//        const val BLOG_CATEGORY = "blog"
+//    }
 }
 
 

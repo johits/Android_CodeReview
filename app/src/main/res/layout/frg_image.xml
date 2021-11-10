@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() ->naverModel.search(fragment.IMAGE_CATEGORY, etImage.getText().toString(), rvImage)}"
+                android:onClick="@{() ->naverModel.search(etImage.getText().toString())}"
                 android:text="검색"
                 android:textSize="13sp" />
 

@@ -5,12 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgCafeBinding
-import com.example.naversearch.model.NaverModel
 
 class CafeFragment : Fragment() {
 
     private lateinit var binding: FrgCafeBinding
+    private val cafeFragmentViewModel: CafeFragmentViewModel by lazy {
+        ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                CafeFragmentViewModel() as T
+        }).get(CafeFragmentViewModel::class.java)
+    }
+    private val textAdapter = TextAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,13 +31,19 @@ class CafeFragment : Fragment() {
 
         binding.apply {
             fragment = this@CafeFragment
-            naverModel = NaverModel(requireActivity().application, CAFE_TYPE)
+            rvCafe.adapter = textAdapter
+            btnCafe.setOnClickListener { cafeFragmentViewModel.resultBlogSearch(etCafe.text.toString()) }
+            cafeFragmentViewModel.getAll().observe(requireActivity()) {
+                textAdapter.submitList(it)
+            }
         }
+        setRecyclerView()
         return binding.root
     }
 
-    companion object {
-        const val CAFE_TYPE = "cafe"
-        const val CAFE_CATEGORY = "cafearticle"
+    private fun setRecyclerView() {
+        with(binding) {
+            rvCafe.adapter = textAdapter
+        }
     }
 }

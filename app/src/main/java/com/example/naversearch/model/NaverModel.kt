@@ -1,10 +1,12 @@
 package com.example.naversearch.model
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.os.SystemClock
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
 import com.example.naversearch.adapter.ImageAdapter
@@ -18,23 +20,23 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NaverModel(application: Application, type: String) : AndroidViewModel(application) {
-    private val context = getApplication<Application>().applicationContext
-    private val textAdapter = TextAdapter()
+class NaverModel( val type: String, private val category: String) {
+    @SuppressLint("StaticFieldLeak")
     private val imageAdapter = ImageAdapter()
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
     private var mLastClickTime = 0L
     var gson = Gson()
     var json = ""
-    val type = type
-    private val sharedPreferences =
-        context.getSharedPreferences(type, MODE_PRIVATE)
+
+//    private val sharedPreferences =
+//        context.getSharedPreferences(type, MODE_PRIVATE)
+
+
+    var _searchDataModel = MutableLiveData<List<SearchData>>() // MutableLiveData 객체 생성
 
     fun search(
-        category: String,
-        keyword: String,
-        rv: RecyclerView
+        keyword: String
     ) { //1초 이내 중복 클릭 방지
         if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
 
@@ -76,17 +78,16 @@ class NaverModel(application: Application, type: String) : AndroidViewModel(appl
                             reqArray.put(json)
                         }
 
-                        sharedPreferences.edit(commit = true) {
-                            putString(type, reqArray.toString())
-                        }
+//                        sharedPreferences.edit(commit = true) {
+//                            putString(type, reqArray.toString())
+//                        }
 
 
                         if (type == "image") {
                             imageAdapter.submitList(sd)
-                            rv.adapter = imageAdapter
+//                            rv.adapter = imageAdapter
                         } else {
-                            textAdapter.submitList(sd)
-                            rv.adapter = textAdapter
+                            _searchDataModel.value = sd
                         }
                     }
 
@@ -98,10 +99,9 @@ class NaverModel(application: Application, type: String) : AndroidViewModel(appl
                 sd.clear()
                 if (type == "image") {
                     imageAdapter.submitList(sd)
-                    rv.adapter = imageAdapter
+//                    rv.adapter = imageAdapter
                 } else {
-                    textAdapter.submitList(sd)
-                    rv.adapter = textAdapter
+                    _searchDataModel.value = sd
                 }
             }
         }
@@ -110,23 +110,24 @@ class NaverModel(application: Application, type: String) : AndroidViewModel(appl
 
     fun lookUp(rv: RecyclerView) {
         sd.clear()
-        sharedPreferences.getString(type, "")
+//        sharedPreferences.getString(type, "")
 
 
-        val jsonArray =
-            JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
-        for (i in 0 until jsonArray.length()) {
-            if (type == DIFF_TYPE) {
-                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
-                imageAdapter.submitList(sd)
-                rv.adapter = imageAdapter
-
-            } else {
-                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
-                textAdapter.submitList(sd)
-                rv.adapter = textAdapter
-            }
-        }
+//        val jsonArray =
+//            JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
+//        for (i in 0 until jsonArray.length()) {
+//            if (type == DIFF_TYPE) {
+//                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
+//                imageAdapter.submitList(sd)
+//                rv.adapter = imageAdapter
+//
+//            } else {
+//                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
+////                textAdapter.submitList(sd)
+////                rv.adapter = textAdapter
+//                _searchDataModel.value = sd
+//            }
+//        }
 
     }
 
