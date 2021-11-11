@@ -6,7 +6,7 @@ import com.example.naversearch.model.NaverModel
 import com.example.naversearch.model.SearchData
 
 class CafeFragmentViewModel : ViewModel() {
-    private val naverModel = NaverModel("blog", "blog")
+    private val naverModel = NaverModel("cafe", "cafearticle")
     private val searchDataModel: LiveData<List<SearchData>>
         get() = naverModel._searchDataModel
 

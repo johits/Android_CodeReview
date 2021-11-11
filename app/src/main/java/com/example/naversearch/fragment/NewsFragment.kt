@@ -30,7 +30,6 @@ class NewsFragment : Fragment() {
 
         binding.apply {
             fragment = this@NewsFragment
-            rvNews.adapter = textAdapter
             btnNews.setOnClickListener {newsFragmentViewModel.resultBlogSearch(etNews.text.toString())}
             newsFragmentViewModel.getAll().observe(requireActivity()){
                 textAdapter.submitList(it?.toMutableList())

@@ -31,7 +31,6 @@ class CafeFragment : Fragment() {
 
         binding.apply {
             fragment = this@CafeFragment
-            rvCafe.adapter = textAdapter
             btnCafe.setOnClickListener { cafeFragmentViewModel.resultBlogSearch(etCafe.text.toString()) }
             cafeFragmentViewModel.getAll().observe(requireActivity()) {
                 textAdapter.submitList(it?.toMutableList())

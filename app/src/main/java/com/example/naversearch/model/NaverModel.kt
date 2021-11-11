@@ -1,28 +1,20 @@
 package com.example.naversearch.model
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.os.SystemClock
-import androidx.core.content.edit
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
-import com.example.naversearch.adapter.ImageAdapter
-import com.example.naversearch.adapter.TextAdapter
 import com.google.gson.Gson
 import org.json.JSONArray
-import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NaverModel( val type: String, private val category: String) {
+class NaverModel(val type: String, private val category: String) {
     @SuppressLint("StaticFieldLeak")
-    private val imageAdapter = ImageAdapter()
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
     private var mLastClickTime = 0L
@@ -82,13 +74,13 @@ class NaverModel( val type: String, private val category: String) {
 //                            putString(type, reqArray.toString())
 //                        }
 
-
-                        if (type == "image") {
-                            imageAdapter.submitList(sd)
-//                            rv.adapter = imageAdapter
-                        } else {
-                            _searchDataModel.value = sd
-                        }
+                        _searchDataModel.value = sd
+//                        if (type == "image") {
+//                            imageAdapter.submitList(sd)
+////                            rv.adapter = imageAdapter
+//                        } else {
+//                            _searchDataModel.value = sd
+//                        }
                     }
 
                     override fun onFailure(call: Call<ResultGetSearch>, t: Throwable) {
@@ -97,12 +89,13 @@ class NaverModel( val type: String, private val category: String) {
                 })
             } else {
                 sd.clear()
-                if (type == "image") {
-                    imageAdapter.submitList(sd)
-//                    rv.adapter = imageAdapter
-                } else {
-                    _searchDataModel.value = sd
-                }
+                _searchDataModel.value = sd
+//                if (type == "image") {
+//                    imageAdapter.submitList(sd)
+////                    rv.adapter = imageAdapter
+//                } else {
+//                    _searchDataModel.value = sd
+//                }
             }
         }
         mLastClickTime = SystemClock.elapsedRealtime()
