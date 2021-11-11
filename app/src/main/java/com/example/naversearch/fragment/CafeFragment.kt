@@ -34,7 +34,7 @@ class CafeFragment : Fragment() {
             rvCafe.adapter = textAdapter
             btnCafe.setOnClickListener { cafeFragmentViewModel.resultBlogSearch(etCafe.text.toString()) }
             cafeFragmentViewModel.getAll().observe(requireActivity()) {
-                textAdapter.submitList(it)
+                textAdapter.submitList(it?.toMutableList())
             }
         }
         setRecyclerView()

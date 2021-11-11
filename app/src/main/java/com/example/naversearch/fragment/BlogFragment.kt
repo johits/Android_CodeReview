@@ -2,6 +2,7 @@ package com.example.naversearch.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,11 +37,11 @@ class BlogFragment : Fragment() {
 
         binding.apply {
             fragment = this@BlogFragment
-            rvBlog.adapter = textAdapter
-            btnBlog.setOnClickListener {blogFragmentViewModel.resultBlogSearch(etBlog.text.toString())}
             blogFragmentViewModel.getAll().observe(requireActivity()){
-                textAdapter.submitList(it)
+                textAdapter.submitList(it?.toMutableList())
             }
+            btnBlog.setOnClickListener {
+                blogFragmentViewModel.resultBlogSearch(etBlog.text.toString())}
         }
         setRecyclerView()
         return binding.root
@@ -51,11 +52,6 @@ class BlogFragment : Fragment() {
             rvBlog.adapter = textAdapter
         }
     }
-
-//    companion object {
-//        const val BLOG_TYPE = "blog"
-//        const val BLOG_CATEGORY = "blog"
-//    }
 }
 
 
