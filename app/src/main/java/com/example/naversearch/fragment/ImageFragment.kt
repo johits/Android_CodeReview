@@ -1,5 +1,7 @@
 package com.example.naversearch.fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +15,11 @@ import com.example.naversearch.databinding.FrgImageBinding
 class ImageFragment : Fragment() {
 
     lateinit var binding: FrgImageBinding
+    lateinit var sharedPreferences: SharedPreferences
     private val imageFragmentViewModel: ImageFragmentViewModel by lazy {
         ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                ImageFragmentViewModel() as T
+                ImageFragmentViewModel(sharedPreferences) as T
         }).get(ImageFragmentViewModel::class.java)
     }
     private val imageAdapter = ImageAdapter()
@@ -27,12 +30,11 @@ class ImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FrgImageBinding.inflate(inflater, container, false)
-
+        sharedPreferences = requireContext().getSharedPreferences("image", Context.MODE_PRIVATE)
         binding.apply {
             fragment = this@ImageFragment
-            btnImage.setOnClickListener {
-                imageFragmentViewModel.resultBlogSearch(etImage.text.toString())
-            }
+            btnImage.setOnClickListener { imageFragmentViewModel.resultBlogSearch(etImage.text.toString()) }
+            btnImageGet.setOnClickListener { imageFragmentViewModel.resultLookUpImageSearch() }
             imageFragmentViewModel.getAll().observe(requireActivity()) {
                 imageAdapter.submitList(it?.toMutableList())
             }

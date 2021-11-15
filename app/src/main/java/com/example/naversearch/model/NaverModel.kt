@@ -1,30 +1,29 @@
 package com.example.naversearch.model
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.SystemClock
+import android.provider.Settings.Global.putString
+import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naversearch.ResultGetSearch
 import com.google.gson.Gson
 import org.json.JSONArray
+import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NaverModel(val type: String, private val category: String) {
+class NaverModel(val type: String, private val category: String, val sharedPreferences: SharedPreferences) {
     @SuppressLint("StaticFieldLeak")
     private val sd = mutableListOf<SearchData>()
     val reqArray = JSONArray()
     private var mLastClickTime = 0L
     var gson = Gson()
     var json = ""
-
-//    private val sharedPreferences =
-//        context.getSharedPreferences(type, MODE_PRIVATE)
-
-
     var _searchDataModel = MutableLiveData<List<SearchData>>() // MutableLiveData 객체 생성
 
     fun search(
@@ -70,17 +69,11 @@ class NaverModel(val type: String, private val category: String) {
                             reqArray.put(json)
                         }
 
-//                        sharedPreferences.edit(commit = true) {
-//                            putString(type, reqArray.toString())
-//                        }
+                        sharedPreferences.edit(commit = true) {
+                            putString(type, reqArray.toString())
+                        }
 
                         _searchDataModel.value = sd
-//                        if (type == "image") {
-//                            imageAdapter.submitList(sd)
-////                            rv.adapter = imageAdapter
-//                        } else {
-//                            _searchDataModel.value = sd
-//                        }
                     }
 
                     override fun onFailure(call: Call<ResultGetSearch>, t: Throwable) {
@@ -90,37 +83,30 @@ class NaverModel(val type: String, private val category: String) {
             } else {
                 sd.clear()
                 _searchDataModel.value = sd
-//                if (type == "image") {
-//                    imageAdapter.submitList(sd)
-////                    rv.adapter = imageAdapter
-//                } else {
-//                    _searchDataModel.value = sd
-//                }
+
             }
         }
         mLastClickTime = SystemClock.elapsedRealtime()
     }
 
-    fun lookUp(rv: RecyclerView) {
+    fun lookUp() {
         sd.clear()
-//        sharedPreferences.getString(type, "")
-
-
-//        val jsonArray =
-//            JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
-//        for (i in 0 until jsonArray.length()) {
-//            if (type == DIFF_TYPE) {
-//                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
+        sharedPreferences.getString(type, "")
+        val jsonArray =
+            JSONTokener(sharedPreferences.getString(type, null)).nextValue() as JSONArray
+        for (i in 0 until jsonArray.length()) {
+            if (type == DIFF_TYPE) {
+                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
 //                imageAdapter.submitList(sd)
 //                rv.adapter = imageAdapter
-//
-//            } else {
-//                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
-////                textAdapter.submitList(sd)
-////                rv.adapter = textAdapter
-//                _searchDataModel.value = sd
-//            }
-//        }
+                _searchDataModel.value = sd
+            } else {
+                sd.add(gson.fromJson(jsonArray[i].toString(), SearchData::class.java))
+//                textAdapter.submitList(sd)
+//                rv.adapter = textAdapter
+                _searchDataModel.value = sd
+            }
+        }
 
     }
 
