@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.naversearch.adapter.ImageAdapter
 import com.example.naversearch.databinding.FrgImageBinding
-import com.example.naversearch.model.NaverModel
 
 class ImageFragment : Fragment() {
 
@@ -31,8 +30,10 @@ class ImageFragment : Fragment() {
 
         binding.apply {
             fragment = this@ImageFragment
-            btnImage.setOnClickListener {imageFragmentViewModel.resultBlogSearch(etImage.text.toString())}
-            imageFragmentViewModel.getAll().observe(requireActivity()){
+            btnImage.setOnClickListener {
+                imageFragmentViewModel.resultBlogSearch(etImage.text.toString())
+            }
+            imageFragmentViewModel.getAll().observe(requireActivity()) {
                 imageAdapter.submitList(it?.toMutableList())
             }
         }
@@ -41,7 +42,7 @@ class ImageFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        with(binding){
+        with(binding) {
             rvImage.adapter = imageAdapter
         }
     }
