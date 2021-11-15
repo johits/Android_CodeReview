@@ -23,30 +23,35 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+        private lateinit var listener : BtnListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setFragment(TAG_BLOG, BlogFragment())
 
-        binding.btnBlog.setOnClickListener {
-            setFragment(TAG_BLOG, BlogFragment())
+        with(binding) {
+            btnBlogMenu.setOnClickListener {
+                setFragment(TAG_BLOG, BlogFragment())
+            }
+
+            btnNewsMenu.setOnClickListener {
+                setFragment(TAG_NEWS, NewsFragment())
+
+            }
+            btnCafeMenu.setOnClickListener {
+                setFragment(
+                    TAG_CAFE,
+                    CafeFragment()
+                )
+            }
+            btnImageMenu.setOnClickListener {
+                setFragment(TAG_IMAGE, ImageFragment())
+            }
+            btnSearch.setOnClickListener { listener.onClickSearch(etInput.text.toString()) }
+            btnLookUp.setOnClickListener { listener.onClickLookUp() }
         }
 
-        binding.btnNews.setOnClickListener {
-            setFragment(TAG_NEWS, NewsFragment())
-
-        }
-        binding.btnCafe.setOnClickListener {
-            setFragment(
-                TAG_CAFE,
-                CafeFragment()
-            )
-        }
-        binding.btnImage.setOnClickListener {
-            setFragment(TAG_IMAGE, ImageFragment())
-        }
 
     }
 
@@ -103,5 +108,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         ft.commitAllowingStateLoss()
+    }
+
+    interface BtnListener {
+        fun onClickSearch(keword: String)
+        fun onClickLookUp()
     }
 }

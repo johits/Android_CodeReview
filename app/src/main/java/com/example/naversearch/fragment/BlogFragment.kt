@@ -12,10 +12,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgBlogBinding
+import com.example.naversearch.ui.MainActivity
 
 
 @SuppressLint("ResourceType")
-class BlogFragment : Fragment() {
+class BlogFragment : Fragment(), MainActivity.BtnListener {
     private lateinit var binding: FrgBlogBinding
     private lateinit var sharedPreferences: SharedPreferences
     private val blogFragmentViewModel: BlogFragmentViewModel by lazy {
@@ -24,8 +25,8 @@ class BlogFragment : Fragment() {
                 BlogFragmentViewModel(sharedPreferences) as T
         }).get(BlogFragmentViewModel::class.java)
     }
-
     private val textAdapter = TextAdapter()
+    lateinit var listener: MainActivity.BtnListener
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,14 +39,8 @@ class BlogFragment : Fragment() {
             blogFragmentViewModel.getAll().observe(requireActivity()) {
                 textAdapter.submitList(it?.toMutableList())
             }
-            btnBlog.setOnClickListener {
-                blogFragmentViewModel.resultBlogSearch(etBlog.text.toString())
-            }
-            btnBlogGet.setOnClickListener{
-                blogFragmentViewModel.resultLookUpBlogSearch()
-            }
         }
-        setRecyclerView()
+        setRecyclerView().apply { listener = OnBtnListener() }
         return binding.root
     }
 
@@ -53,6 +48,26 @@ class BlogFragment : Fragment() {
         with(binding) {
             rvBlog.adapter = textAdapter
         }
+    }
+
+    override fun onClickSearch(keword: String) {
+        blogFragmentViewModel.resultBlogSearch(keword)
+
+    }
+
+    override fun onClickLookUp() {
+        blogFragmentViewModel.resultLookUpBlogSearch()
+    }
+
+    private inner class OnBtnListener : MainActivity.BtnListener {
+        override fun onClickSearch(keword: String) {
+            blogFragmentViewModel.resultBlogSearch(keword)
+        }
+
+        override fun onClickLookUp() {
+            blogFragmentViewModel.resultLookUpBlogSearch()
+        }
+
     }
 }
 

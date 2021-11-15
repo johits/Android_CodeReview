@@ -7,61 +7,99 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:hint="@string/blog_hint"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/search"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_look_up"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:text="@string/read"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_blog"
+        app:layout_constraintBottom_toTopOf="@+id/btn_blog_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ll" />
 
 
     <Button
-        android:id="@+id/btn_blog"
+        android:id="@+id/btn_blog_menu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:layout_marginBottom="10dp"
         android:text="@string/blog"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_news"
+        app:layout_constraintEnd_toStartOf="@+id/btn_news_menu"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <Button
-        android:id="@+id/btn_news"
+        android:id="@+id/btn_news_menu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:text="@string/news"
-        app:layout_constraintBottom_toBottomOf="@id/btn_blog"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cafe"
+        app:layout_constraintBottom_toBottomOf="@id/btn_blog_menu"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cafe_menu"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_blog" />
+        app:layout_constraintStart_toEndOf="@+id/btn_blog_menu" />
 
     <Button
-        android:id="@+id/btn_cafe"
+        android:id="@+id/btn_cafe_menu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:text="@string/cafe"
-        app:layout_constraintBottom_toBottomOf="@id/btn_blog"
-        app:layout_constraintEnd_toStartOf="@+id/btn_image"
+        app:layout_constraintBottom_toBottomOf="@id/btn_blog_menu"
+        app:layout_constraintEnd_toStartOf="@+id/btn_image_menu"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_news" />
+        app:layout_constraintStart_toEndOf="@+id/btn_news_menu" />
 
     <Button
-        android:id="@+id/btn_image"
+        android:id="@+id/btn_image_menu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:text="@string/image"
-        app:layout_constraintBottom_toBottomOf="@id/btn_blog"
+        app:layout_constraintBottom_toBottomOf="@id/btn_blog_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_cafe" />
+        app:layout_constraintStart_toEndOf="@+id/btn_cafe_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
