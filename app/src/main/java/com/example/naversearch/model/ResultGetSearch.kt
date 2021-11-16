@@ -5,10 +5,10 @@ data class ResultGetSearch(
     var total: Int = 0,
     var start: Int = 0,
     var display: Int = 0,
-    var items: List<Items>
+    var resultGetSearchItem: List<ResultGetSeachItem>
 )
 
-data class Items(
+data class ResultGetSeachItem(
     var title: String = "",
     var originallink: String = "",
     var link: String = "",

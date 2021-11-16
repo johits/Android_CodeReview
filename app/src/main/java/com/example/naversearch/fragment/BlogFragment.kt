@@ -12,21 +12,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgBlogBinding
+import com.example.naversearch.model.NaverRepository
 import com.example.naversearch.ui.MainActivity
 
 
 @SuppressLint("ResourceType")
-class BlogFragment : Fragment(), MainActivity.BtnListener {
+class BlogFragment : Fragment() {
     private lateinit var binding: FrgBlogBinding
     private lateinit var sharedPreferences: SharedPreferences
     private val blogFragmentViewModel: BlogFragmentViewModel by lazy {
         ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                BlogFragmentViewModel(sharedPreferences) as T
+                BlogFragmentViewModel(NaverRepository("blog", "blog", sharedPreferences)) as T
         }).get(BlogFragmentViewModel::class.java)
     }
     private val textAdapter = TextAdapter()
-    lateinit var listener: MainActivity.BtnListener
+    private lateinit var listener: MainActivity.BtnListener
+    var callback: ((Boolean) -> Unit)? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,8 +43,15 @@ class BlogFragment : Fragment(), MainActivity.BtnListener {
                 textAdapter.submitList(it?.toMutableList())
             }
         }
-        setRecyclerView().apply { listener = OnBtnListener() }
+        setRecyclerView()
+        observeCallback()
         return binding.root
+    }
+
+    private fun observeCallback() {
+        blogFragmentViewModel.sample {
+            // callback이 호출될 때 여기를 탐
+        }
     }
 
     private fun setRecyclerView() {
@@ -50,16 +60,7 @@ class BlogFragment : Fragment(), MainActivity.BtnListener {
         }
     }
 
-    override fun onClickSearch(keword: String) {
-        blogFragmentViewModel.resultBlogSearch(keword)
-
-    }
-
-    override fun onClickLookUp() {
-        blogFragmentViewModel.resultLookUpBlogSearch()
-    }
-
-    private inner class OnBtnListener : MainActivity.BtnListener {
+    inner class OnBtnListener : MainActivity.BtnListener {
         override fun onClickSearch(keword: String) {
             blogFragmentViewModel.resultBlogSearch(keword)
         }

@@ -9,7 +9,7 @@
 
         <variable
             name="naverModel"
-            type="com.example.naversearch.model.NaverModel" />
+            type="com.example.naversearch.model.NaverRepository" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

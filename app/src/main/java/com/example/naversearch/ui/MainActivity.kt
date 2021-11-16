@@ -22,13 +22,13 @@ private const val TAG_IMAGE = "image_fragment"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-        private lateinit var listener : BtnListener
+    private var btnListener: BtnListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setFragment(TAG_BLOG, BlogFragment())
+
 
         with(binding) {
             btnBlogMenu.setOnClickListener {
@@ -48,13 +48,12 @@ class MainActivity : AppCompatActivity() {
             btnImageMenu.setOnClickListener {
                 setFragment(TAG_IMAGE, ImageFragment())
             }
-            btnSearch.setOnClickListener { listener.onClickSearch(etInput.text.toString()) }
-            btnLookUp.setOnClickListener { listener.onClickLookUp() }
+            btnSearch.setOnClickListener { btnListener?.onClickSearch(etInput.text.toString()) }
+            btnLookUp.setOnClickListener { btnListener?.onClickLookUp() }
         }
 
 
     }
-
 
     private fun setFragment(tag: String, fragment: Fragment) {
         val manager: FragmentManager = supportFragmentManager
