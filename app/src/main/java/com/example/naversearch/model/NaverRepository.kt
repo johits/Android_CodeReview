@@ -2,7 +2,6 @@ package com.example.naversearch.model
 
 import android.content.SharedPreferences
 import android.os.SystemClock
-import androidx.core.content.edit
 import com.example.naversearch.ResultGetSeachItem
 import com.example.naversearch.ResultGetSearch
 import com.google.gson.Gson
@@ -22,7 +21,6 @@ class NaverRepository(
 
     private var lastClickTime = 0L
     private var gson = Gson()
-    private var json = ""
 
     fun search(
         keyword: String,
@@ -56,9 +54,9 @@ class NaverRepository(
                                 reqArray.put(gson.toJson(item))
                             }
 
-                        sharedPreferences.edit(commit = true) {
-                            putString(type, reqArray.toString())
-                        }
+//                        sharedPreferences.edit(commit = true) {
+//                            putString(type, reqArray.toString())
+//                        }
 
                         onSuccess(searchDataList)
                     }
@@ -98,7 +96,9 @@ class NaverRepository(
                 searchDataList
             }
         }
+        return searchDataList
     }
+
 
     fun toSearchData(resultGetSeachItem: ResultGetSeachItem): SearchData {
         return SearchData(

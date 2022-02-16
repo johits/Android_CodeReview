@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.naversearch.adapter.ImageAdapter
 import com.example.naversearch.databinding.FrgImageBinding
+import com.example.naversearch.model.NaverRepository
+import com.example.naversearch.ui.MainActivity
 
 class ImageFragment : Fragment() {
 
@@ -19,7 +21,7 @@ class ImageFragment : Fragment() {
     private val imageFragmentViewModel: ImageFragmentViewModel by lazy {
         ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                ImageFragmentViewModel(sharedPreferences) as T
+                ImageFragmentViewModel(NaverRepository("image", "image", sharedPreferences)) as T
         }).get(ImageFragmentViewModel::class.java)
     }
     private val imageAdapter = ImageAdapter()
@@ -34,9 +36,9 @@ class ImageFragment : Fragment() {
         binding.apply {
             fragment = this@ImageFragment
             btnImage.setOnClickListener { imageFragmentViewModel.resultBlogSearch(etImage.text.toString()) }
-            btnImageGet.setOnClickListener { imageFragmentViewModel.resultLookUpImageSearch() }
-            imageFragmentViewModel.getAll().observe(requireActivity()) {
-                imageAdapter.submitList(it?.toMutableList())
+//            btnImageGet.setOnClickListener { imageFragmentViewModel.resultLookUpImageSearch() }
+            imageFragmentViewModel.searchList.observe(requireActivity()) {
+                imageAdapter.submitList(it)
             }
         }
         setRecyclerView()
@@ -47,5 +49,16 @@ class ImageFragment : Fragment() {
         with(binding) {
             rvImage.adapter = imageAdapter
         }
+    }
+
+    inner class OnBtnListener : MainActivity.BtnListener {
+        override fun onClickSearch(keword: String) {
+            imageFragmentViewModel.resultBlogSearch(keword)
+        }
+
+        override fun onClickLookUp() {
+            imageFragmentViewModel.resultLookUpBlogSearch()
+        }
+
     }
 }

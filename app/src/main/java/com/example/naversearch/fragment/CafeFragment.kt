@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.naversearch.adapter.TextAdapter
 import com.example.naversearch.databinding.FrgCafeBinding
+import com.example.naversearch.model.NaverRepository
 
 class CafeFragment : Fragment() {
 
@@ -19,7 +20,7 @@ class CafeFragment : Fragment() {
     private val cafeFragmentViewModel: CafeFragmentViewModel by lazy {
         ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                CafeFragmentViewModel(sharedPreferences) as T
+                CafeFragmentViewModel(NaverRepository("cafe", "cafearticle", sharedPreferences)) as T
         }).get(CafeFragmentViewModel::class.java)
     }
     private val textAdapter = TextAdapter()
@@ -34,9 +35,9 @@ class CafeFragment : Fragment() {
         binding.apply {
             fragment = this@CafeFragment
             btnCafe.setOnClickListener { cafeFragmentViewModel.resultBlogSearch(etCafe.text.toString()) }
-            btnCafeGet.setOnClickListener { cafeFragmentViewModel.resultLookUpCafeSearch() }
-            cafeFragmentViewModel.getAll().observe(requireActivity()) {
-                textAdapter.submitList(it?.toMutableList())
+//            btnCafeGet.setOnClickListener { cafeFragmentViewModel.resultLookUpCafeSearch() }
+            cafeFragmentViewModel.searchList.observe(requireActivity()) {
+                textAdapter.submitList(it)
             }
         }
         setRecyclerView()

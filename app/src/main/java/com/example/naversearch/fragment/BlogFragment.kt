@@ -39,8 +39,11 @@ class BlogFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("blog", MODE_PRIVATE)
         binding.apply {
             fragment = this@BlogFragment
-            blogFragmentViewModel.getAll().observe(requireActivity()) {
-                textAdapter.submitList(it?.toMutableList())
+//            blogFragmentViewModel.getAll().observe(requireActivity()) {
+//                textAdapter.submitList(it?.toMutableList())
+//            }
+            blogFragmentViewModel.searchList.observe(requireActivity()){
+                textAdapter.submitList(it)
             }
         }
         setRecyclerView()
